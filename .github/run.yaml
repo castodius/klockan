@@ -1,0 +1,23 @@
+name: Run simulation
+
+on:
+  push
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Simulate small deck
+        run: yarn simulate --card-count 4 --card-copies 4 --rounds 1000000
+
+      - name: Simulate standard deck
+        run: yarn simulate --card-count 12 --card-copies 4 --rounds 1000000
